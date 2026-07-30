@@ -63,9 +63,9 @@ module.exports = async (req, res) => {
   try {
     const u = req.query.u || "";
     /* sj1.uk = 위젯 본 도메인 / s2gye.uk = 보조(삽화 R2 경유).
-     * 경로는 워커가 받는 접두어(/blh · 구 /mha)로 한정 — 도메인만 열면
-     * s2gye.uk를 함께 쓰는 백야(/wnf) 위젯까지 이 변환기를 타 캡을 잡아먹는다. */
-    if (!/^https:\/\/(sj1|s2gye)\.uk\/(blh|mha)\//.test(u)) { res.status(400).send("bad url"); return; }
+     * 도메인 3종(sj1.uk · s2gye.uk · setting.nz) × 경로 /blh 로 한정.
+     * 도메인만 열면 s2gye.uk를 함께 쓰는 백야(/wnf)까지 이 변환기를 타 캡을 잡아먹는다. */
+    if (!/^https:\/\/(?:sj1\.uk|s2gye\.uk|setting\.nz)\/(?:blh|천인|mha)\//.test(u)) { res.status(400).send("bad url"); return; }
     const r = await fetch(u, { headers: { "User-Agent": "blh-raster/1.0" } });
     if (!r.ok) { res.status(502).send("origin " + r.status); return; }
     const svg = retag(await r.text(), pickFams(u));
