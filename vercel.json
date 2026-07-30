@@ -1,0 +1,7 @@
+{
+  "functions": {
+    "api/png.js": {
+      "includeFiles": "{fonts,fontconfig}/**"
+    }
+  }
+}
